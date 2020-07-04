@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+	
+{% block post %}
+	{% for post in post_list %}
+	<div class="border p-3 shadow-sm mb-3">
+		<strong class="d-inline-block mb-2 text-success">{{ post.categoria }}</strong>
+		<h2>{{ post.titulo }}</h2>
+		<div class="my-2 text-muted">{{ post.autor.get_full_name }}  | {{ post.data}} </div>
+		<hr>
+		<p class="text-justify">{{post.conteudo|slice:":125" }} ... </p>
+		<a href="{% url 'post_detail' post.slug  %}" class="btn btn-outline-dark mt-2">Ler &rarr;</a>
+	</div>
+	{% endfor %}
+{% endblock post %}
+	

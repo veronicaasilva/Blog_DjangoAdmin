@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post, Categoria
+from .models import Post, Categoria, Comentario
 
 admin.site.site_header = "Post Admin"
 admin.site.site_title = "Administração Postagens"
@@ -28,7 +28,16 @@ class PostAdmin(admin.ModelAdmin):
 admin.site.register(Post, PostAdmin)
 
 
+class ComentarioAdmin(admin.ModelAdmin):
+    list_display = ('nome', 'mensagem', 'post', 'data', 'aprovado')
+    list_filter = ('aprovado', 'data')
+    search_fields = ('nome', 'email', 'mensagem')
+    actions = ['aprovar_comentarios']
 
+    def aprovar_comentarios(self, request, queryset):
+        queryset.update(active=True)
+
+admin.site.register(Comentario, ComentarioAdmin)
 
 
 

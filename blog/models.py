@@ -54,3 +54,16 @@ class Post(models.Model):
         return self.titulo
 
 
+class Comentario(models.Model):
+    post = models.ForeignKey(Post,on_delete=models.CASCADE,related_name='comentarios')
+    nome = models.CharField(max_length=80)
+    email = models.EmailField(null=True, blank=True)
+    mensagem = models.TextField()
+    data = models.DateTimeField(auto_now_add=True)
+    aprovado = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['data']
+
+    def __str__(self):
+        return 'Comentando {} por {}'.format(self.mensagem, self.nome)
