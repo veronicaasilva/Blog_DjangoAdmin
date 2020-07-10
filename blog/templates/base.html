@@ -5,34 +5,16 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-
-    <title>My Blog</title>
-		<style>
-			.bd-placeholder-img {
-				font-size: 1.125rem;
-				text-anchor: middle;
-				-webkit-user-select: none;
-				-moz-user-select: none;
-				-ms-user-select: none;
-				user-select: none;
-			}
-
-			@media (min-width: 768px) {
-				.bd-placeholder-img-lg {
-					font-size: 3.5rem;
-				}
-			}
-		</style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"crossorigin="anonymous">
     <!-- Custom styles for this template -->
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="{% static 'css/blog.css'%}" rel="stylesheet">
+
+    <title>{% block title %} {% endblock title %}</title>
   </head>
   <body>
-
     <div class="container">
 			<header class="blog-header pt-4">
 				<div class="row justify-content-between">
@@ -40,7 +22,7 @@
 						<a class="btn btn-outline-secondary" href="#">Entrar</a>
 					</div>
 					<div class="col-4 text-center">
-						<a class="blog-header-logo text-dark" href="#">My blog </a>
+						<a class="blog-header-logo text-dark" href="{% url 'home' %}">My blog </a>
 					</div>
 					<div class="col-4 d-flex justify-content-end">
 						<form class="form-inline">
@@ -54,21 +36,12 @@
 					</div>
 				</div>
 			</header>
-			<div class="nav-scroller py-1 mb-2">
-				<nav class="nav d-flex justify-content-center">	
-					{% block categorias %}
-						{% include 'categorias.html' %}
-					{% endblock categorias %}	
-				</nav>
-			</div>
 		</div>
-
-    <div class="container">
+    <div class="container mt-2">
 			<div class="row">
 				<div class="col-8"> 
-          {% block post %}
-            
-          {% endblock post %}
+          {% block post_area %}{% endblock post_area %}
+          {% block paginator %}{% endblock paginator %}    
 				</div>
 				<div class="col-4"> <!-- blog-sidebar -->
 					<div class="blog-sidebar">

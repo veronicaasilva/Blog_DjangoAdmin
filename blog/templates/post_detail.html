@@ -1,13 +1,47 @@
-
 {% extends 'base.html' %}
+{% load bootstrap4 %}
 
-{% block post %}
+{% block title %} {{ post.titulo }} {% endblock title %}
+
+{% block post_area %}
     <div class="border p-3 shadow-sm mb-3">
         <strong class="d-inline-block mb-2 text-success">{{ post.categoria }}</strong>
         <h2>{{ post.titulo }}</h2>
         <div class="my-2 text-muted">{{ post.autor.get_full_name }}  | {{ post.data}} </div>
         <hr>
-        <p class="text-justify">{{post.conteudo }}</p>
-        <a href="{% url 'home' %}" class="btn btn-outline-dark mt-2">Voltar</a>
+        <p class="text-justify">{{post.conteudo | safe }}</p>
     </div>
-{% endblock post %}
+
+    <div class="card">
+      <div class="card-body">
+        <h3>Comentários </h3>
+        <hr>
+        {% for comentario in comentarios %}
+          <div>
+            <h4 class="mb-0">{{ comentario.nome }}</h4>
+            <div class="text-muted">  Postado: {{ comentario.data }} </div>
+            <p class="text-justify m-0">{{ comentario.mensagem | linebreaks }}</p>
+            
+          </div>
+        {% endfor %}
+        </div>
+      </div>
+      
+      <div class="card mb-4  mt-3 ">
+        <div class="card-body">
+          {% if novo_comentario %}
+            <div class="alert alert-success" role="alert">
+              Aguarde seu comentário ser aprovado.
+            </div>
+          {% else %}
+            <h3>Deixe um comentário: </h3>
+            <form method="post" class="form"> 
+              {% csrf_token %}
+              {% bootstrap_form comentario_form %}
+              <button type="submit" class="btn btn-outline-dark">Enviar</button>
+            </form>
+          {% endif %}
+        </div>
+      </div>
+
+{% endblock post_area %}

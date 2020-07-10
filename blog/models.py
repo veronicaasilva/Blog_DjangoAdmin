@@ -56,9 +56,9 @@ class Post(models.Model):
 
 class Comentario(models.Model):
     post = models.ForeignKey(Post,on_delete=models.CASCADE,related_name='comentarios')
-    nome = models.CharField(max_length=80)
-    email = models.EmailField(null=True, blank=True)
-    mensagem = models.TextField()
+    nome = models.CharField(max_length=80, help_text='Obrigatório')
+    email = models.EmailField(help_text='Obrigatório')
+    mensagem = models.TextField(max_length=500, help_text='Máximo 500 caracteres')
     data = models.DateTimeField(auto_now_add=True)
     aprovado = models.BooleanField(default=False)
 
