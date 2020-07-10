@@ -3,11 +3,33 @@
     My Blog
 {% endblock title %}
 
+
+
+
 {% block post_area %}
-	{% include 'post_list.html' %}
+	{% for post in post_list %}
+	<div class="border p-3 shadow-sm mb-3">
+		<h3>{{ post.titulo }}</h3>
+		<div class="my-2 text-muted">Por {{ post.autor.get_full_name }}  | {{ post.data}} | Em: <a href="{% url 'post_por_categoria' post.categoria.id %}"> {{ post.categoria }} </a> </div>
+		<hr>
+		<p class="text-justify">{{post.conteudo|truncatechars_html:400| safe}} </p>
+		<a href="{% url 'post_detail' post.slug  %}" class="btn btn-outline-dark mt-2">Ler &rarr;</a>
+	</div>
+	{% endfor %}   
 {% endblock post_area %}
 
 {% block paginator %}
-	{% include 'paginator.html' %}
+	{% if is_paginated %}
+	<nav>
+			<ul class="pagination justify-content-center">
+					{% if page_obj.has_previous %}
+							<li><a href="?page={{ page_obj.previous_page_number }}" class="btn btn-outline-dark mr-3">&laquo; Anterior </a></li>
+					{% endif %}
+					{% if page_obj.has_next %}
+							<li><a href="?page={{ page_obj.next_page_number }}" class="btn btn-outline-dark"> Próximo &raquo;</a></li>
+					{% endif %}
+			</ul>
+	</nav>
+	{% endif %}
 {% endblock paginator %}
 	

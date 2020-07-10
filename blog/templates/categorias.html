@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+
+{% block post_area %}
+    <h2 class="text-center">Categorias</h2>
+    <div class="list-group list-group-flush">
+        {% for categoria in categorias %}
+            <a href="{% url 'post_por_categoria' categoria.id %}" class="list-group-item list-group-item-action">	&#9656; {{ categoria.categoria }}</a>
+        {% endfor %}
+    </div>
+{% endblock post_area %}
+    
+
