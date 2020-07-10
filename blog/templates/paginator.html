@@ -1,8 +1,8 @@
-{% if is_paginated %}.
+{% if is_paginated %}
 <nav>
     <ul class="pagination justify-content-center">
         {% if page_obj.has_previous %}
-            <li><a href="?page={{ page_obj.previous_page_number }}" class="btn btn-outline-dark">&laquo; PREV </a></li>
+            <li><a href="?page={{ page_obj.previous_page_number }}" class="btn btn-outline-dark mr-3">&laquo; Anterior </a></li>
         {% endif %}
         {% if page_obj.has_next %}
             <li><a href="?page={{ page_obj.next_page_number }}" class="btn btn-outline-dark"> Próximo &raquo;</a></li>

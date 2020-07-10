@@ -9,7 +9,12 @@ class AllPost(ListView):
     queryset = Post.objects.filter(status=1).order_by('-data')
     template_name = 'index.html'
     context_object_name = 'post_list'
-    paginate_by = 2
+    paginate_by = 5
+
+    def get_context_data(self, **kwargs):
+        context = super(AllPost, self).get_context_data(**kwargs)
+        context['categoria_list'] = Categoria.objects.all()
+        return context
 
 def post_detail(request, slug):
     post = get_object_or_404(Post, slug=slug)
@@ -34,3 +39,7 @@ def post_detail(request, slug):
 
     return render(request, 'post_detail.html', context)
 
+
+def post_por_categoria(request, id):
+    post_list = Post.objects.filter(categoria__id=id)
+    return render(request, 'post_por_categoria.html', {'post_list':post_list})
